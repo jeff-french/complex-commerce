@@ -9,7 +9,7 @@ namespace ComplexCommerce.Web
     {
         public HomeModule()
         {
-            Get["/"] = paramaters => View["index.sshtml"];
+            Get["/"] = paramaters => View["index"];
             Get["/hello"] = parameters => "Hello Mono!";
         }
     }
