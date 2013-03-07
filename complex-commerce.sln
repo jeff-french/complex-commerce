@@ -12,13 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2F7CB9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexCommerce.Services", "ComplexCommerce.Services\ComplexCommerce.Services.csproj", "{DC90719F-C5E1-42E9-9D01-B1A06686EA62}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seed Data", "Seed Data", "{3C4567FE-6483-4003-B189-90FB3284A410}"
-	ProjectSection(SolutionItems) = preProject
-		Seed Data\Chinook_PostgreSql.sql = Seed Data\Chinook_PostgreSql.sql
-		Seed Data\CreatePostgreSql.bat = Seed Data\CreatePostgreSql.bat
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexCommerce.Models", "ComplexCommerce.Models\ComplexCommerce.Models.csproj", "{DD3DE67C-68AC-42DB-B562-77505D7EDAC7}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ComplexCommerce.Data.SqlServer", "ComplexCommerce.Data.SqlServer\ComplexCommerce.Data.SqlServer.sqlproj", "{4FC89328-8194-421F-B946-A92E4408E106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +34,12 @@ Global
 		{DD3DE67C-68AC-42DB-B562-77505D7EDAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3DE67C-68AC-42DB-B562-77505D7EDAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3DE67C-68AC-42DB-B562-77505D7EDAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
