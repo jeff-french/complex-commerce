@@ -16,7 +16,7 @@ namespace ComplexCommerce.Services
             //Register dependencies here
             container.Register<IDbConnectionFactory>(
                 c =>
-                new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["CommerceDB"].ConnectionString));
+                new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["CommerceDB"].ConnectionString, SqlServerDialect.Provider));
             container.Register(c => c.Resolve<IDbConnectionFactory>().CreateDbConnection());
 
             RegisterRoutes();
@@ -25,8 +25,7 @@ namespace ComplexCommerce.Services
         private void RegisterRoutes()
         {
             Routes
-                .Add<Artist>("/artist")
-                .Add<Artist>("/artist/{id}");
+                .Add<Artist>("/artist/{ArtistId}");
         }
     }
 }
