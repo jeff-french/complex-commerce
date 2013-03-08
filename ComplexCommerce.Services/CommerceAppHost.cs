@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
-using System.Data;
 using ComplexCommerce.Models;
+using ComplexCommerce.Models.Requests;
 using Funq;
 using ServiceStack.OrmLite;
 using ServiceStack.WebHost.Endpoints;
@@ -25,7 +25,9 @@ namespace ComplexCommerce.Services
         private void RegisterRoutes()
         {
             Routes
-                .Add<Artist>("/artist/{ArtistId}");
+                .Add<Artist>("/artists", "POST")
+                .Add<Artist>("/artists/{ArtistId}")
+                .Add<Artists>("/artists", "GET,OPTIONS");
         }
     }
 }
