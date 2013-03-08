@@ -1,95 +1,433 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>MacKart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
 
-        <link rel="stylesheet" href="Content/bootstrap.min.css">
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
-        <link rel="stylesheet" href="Content/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="Content/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
 
-        <script src="Scripts/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+  <!-- Stylesheets -->
+  <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+  <!-- Pretty Photo -->
+  <link href="@Url.Content("~/Content/prettyPhoto.css")" rel="stylesheet">
+  <!-- Flex slider -->
+  <link href="@Url.Content("~/Content/flexslider.css")" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet"> 
+  <!-- Main stylesheet -->
+  <link href="@Url.Content("~/Content/style.css")" rel="stylesheet">
+  <!-- Stylesheet for Color -->
+  <link href="@Url.Content("~/Content/blue.css")" rel="stylesheet">
+  <!-- Responsive style (from Bootstrap) -->
+  <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet">
+  
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="@Url.Content("~/Scripts/modernizr-2.6.2-respond-1.1.0.min.js")"></script>
+  <![endif]-->
 
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-        
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="#">Project name</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li class="nav-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form pull-right">
-                            <input class="span2" type="text" placeholder="Email">
-                            <input class="span2" type="password" placeholder="Password">
-                            <button type="submit" class="btn">Sign in</button>
-                        </form>
-                    </div><!--/.nav-collapse -->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="@Url.Content("~/Content/images/favicon/favicon.png")">
+</head>
+
+<body>
+
+<!-- Header starts -->
+  <header>
+    <div class="container">
+      <div class="row">
+
+        <div class="span4">
+          <!-- Logo. Use class "color" to add color to the text. -->
+          <div class="logo">
+            <h1><a href="#">Mac<span class="color bold">Kart</span></a></h1>
+            <p class="meta">online shopping is fun!!!</p>
+          </div>
+        </div>
+
+        <div class="span5 offset3">
+          
+          <!-- Search form -->
+          <form class="form-search">
+            <div class="input-append">
+              <input class="span3" id="appendedInputButton" type="text" placeholder="Enter something to search">
+              <button class="btn" type="button">Search</button>
+            </div>
+          </form>
+
+          <div class="hlinks">
+            <span>
+
+              <!-- item details with price -->
+              <a href="#cart" role="button" data-toggle="modal">3 Item(s) in your <i class="icon-shopping-cart"></i></a> -<span class="bold">$25</span>  
+
+            </span>
+
+
+              <!-- Login and Register link -->
+              <span class="lr"><a href="#login" role="button" data-toggle="modal">Login</a> or <a href="#register" role="button" data-toggle="modal">Register</a></span>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </header>
+  <!-- Header ends -->
+
+  <!-- Cart, Login and Register form (Modal) -->
+
+    <!-- Cart Modal starts -->
+<div id="cart" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4>Shopping Cart</h4>
+  </div>
+  <div class="modal-body">
+
+            <table class="table table-striped tcart">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="single-item.html">HTC One</a></td>
+                  <td>2</td>
+                  <td>$250</td>
+                </tr>
+                <tr>
+                  <td><a href="single-item.html">Apple iPhone</a></td>
+                  <td>1</td>
+                  <td>$502</td>
+                </tr>
+                <tr>
+                  <td><a href="single-item.html">Galaxy Note</a></td>
+                  <td>4</td>
+                  <td>$1303</td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>Total</th>
+                  <th>$2405</th>
+                </tr>
+              </tbody>
+            </table>
+
+  </div>
+  <div class="modal-footer">
+    <a href="index.html" class="btn">Continue Shopping</a>
+    <a href="checkout.html" class="btn btn-danger">Checkout</a>
+  </div>
+</div>
+
+<!-- Cart modal ends -->
+
+  <!-- Login Modal starts -->
+<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4>Login</h4>
+  </div>
+  <div class="modal-body">
+
+                    <div class="form">
+
+                                      <!-- Login form (not working)-->
+                                      <form class="form-horizontal">                                         
+                                          <!-- Username -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="username">Username</label>
+                                            <div class="controls">
+                                              <input type="text" class="input-large" id="username">
+                                            </div>
+                                          </div>
+                                          <!-- Password -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="email">Password</label>
+                                            <div class="controls">
+                                              <input type="password" class="input-large" id="password">
+                                            </div>
+                                          </div>
+                                          <!-- Checkbox -->
+                                          <div class="control-group">
+                                             <div class="controls">
+                                                <label class="checkbox inline">
+                                                   <input type="checkbox" id="inlineCheckbox1" value="agree"> Remember Password
+                                                </label>
+                                             </div>
+                                          </div> 
+                                          
+                                          <!-- Buttons -->
+                                          <div class="form-actions">
+                                             <!-- Buttons -->
+                                            <button type="submit" class="btn">Login</button>
+                                            <button type="reset" class="btn">Reset</button>
+                                          </div>
+                                      </form>
+                                    </div> 
+
+  </div>
+  <div class="modal-footer">
+    <p>Dont have account? <a href="register.html">Register</a> here.</p>
+  </div>
+</div>
+
+<!-- Login modal ends -->
+
+  <!-- Register Modal starts -->
+
+<div id="register" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4>Register</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form">
+                                      <!-- Register form (not working)-->
+                                      <form class="form-horizontal">
+                                          <!-- Name -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="name">Name</label>
+                                            <div class="controls">
+                                              <input type="text" class="input-large" id="name">
+                                            </div>
+                                          </div>   
+                                          <!-- Email -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="email">Email</label>
+                                            <div class="controls">
+                                              <input type="text" class="input-large" id="email">
+                                            </div>
+                                          </div>
+                                          <!-- Select box -->
+                                          <div class="control-group">
+                                            <label class="control-label">Drop Down</label>
+                                            <div class="controls">                               
+                                                <select>
+                                                <option>&nbsp;</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                </select>  
+                                            </div>
+                                          </div>                                           
+                                          <!-- Username -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="username1">Username</label>
+                                            <div class="controls">
+                                              <input type="text" class="input-large" id="username1">
+                                            </div>
+                                          </div>
+                                          <!-- Password -->
+                                          <div class="control-group">
+                                            <label class="control-label" for="password1">Password</label>
+                                            <div class="controls">
+                                              <input type="password" class="input-large" id="password1">
+                                            </div>
+                                          </div>
+                                          <!-- Checkbox -->
+                                          <div class="control-group">
+                                             <div class="controls">
+                                                <label class="checkbox inline">
+                                                   <input type="checkbox" id="inlineCheckbox2" value="agree"> Agree with Terms and Conditions
+                                                </label>
+                                             </div>
+                                          </div> 
+                                          
+                                          <!-- Buttons -->
+                                          <div class="form-actions">
+                                             <!-- Buttons -->
+                                            <button type="submit" class="btn">Register</button>
+                                            <button type="reset" class="btn">Reset</button>
+                                          </div>
+                                      </form>
+                                    </div>
+  </div>
+  <div class="modal-footer">
+    <p>Already have account? <a href="login.html">Login</a> here.</p>
+  </div>
+</div>
+
+<!-- Register modal ends -->
+
+  <!-- Navigation -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="index.html"><i class="icon-home"></i></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="myaccount.html">My Account</a></li>
+                                <li><a href="view-cart.html">View Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="wish-list.html">Wish List</a></li>
+                                <li><a href="order-history.html">Order History</a></li>
+                                <li><a href="edit-profile.html">Edit Profile</a></li>
+                                <li><a href="confirmation.html">Confirmation</a></li>
+                            </ul>
+                        </li>                   
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="general.html">General</a></li>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Register</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="blog-single.html">Blog Single</a></li>
+                                <li><a href="404.html">404</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Smartphones <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="items.html">HTC</a></li>
+                                <li><a href="items.html">Samsung</a></li>
+                                <li><a href="items.html">Apple</a></li>
+                                <li><a href="items.html">Motorola</a></li>
+                                <li><a href="items.html">Nokia</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tablets <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="items.html">Samsung</a></li>
+                                <li><a href="items.html">Micromax</a></li>
+                                <li><a href="items.html">Apple</a></li>
+                            </ul>
+                        </li>                                      
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+    <!--Main Content -->
+    
+    @RenderBody()
+    
+    <!-- Main Content Ends -->
+    
+    <!-- Footer starts -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
 
-        <div class="container">
-            @RenderBody()
-            
+            <div class="row">
 
-            <hr>
+              <div class="span4">
+                <div class="widget">
+                  <h5>Contact</h5>
+                  <hr />
+                    <div class="social">
+                      <a href="#"><i class="icon-facebook facebook"></i></a>
+                      <a href="#"><i class="icon-twitter twitter"></i></a>
+                      <a href="#"><i class="icon-linkedin linkedin"></i></a>
+                      <a href="#"><i class="icon-google-plus google-plus"></i></a> 
+                    </div>
+                  <hr />
+                  <i class="icon-home"></i> &nbsp; 123, Some Area. Los Angeles, CA, 54321.
+                  <hr />
+                  <i class="icon-phone"></i> &nbsp; +239-3823-3434
+                  <hr />
+                  <i class="icon-envelope-alt"></i> &nbsp; <a href="mailto:#">someone@company.com</a>
+                  <hr />
+                    <div class="payment-icons">
+                        <img src="@Url.Content("~/Content/images/payment/americanexpress.gif")" alt="" />
+                        <img src="@Url.Content("~/Content/images/payment/visa.gif")" alt="" />
+                        <img src="@Url.Content("~/Content/images/payment/mastercard.gif")" alt="" />
+                        <img src="@Url.Content("~/Content/images/payment/discover.gif")" alt="" />
+                        <img src="@Url.Content("~/Content/images/payment/paypal.gif")" alt="" />
+                    </div>
+                </div>
+              </div>
 
-            <footer>
-                <p>&copy; Company 2012</p>
-            </footer>
+              <div class="span4">
+                <div class="widget">
+                  <h5>Latest Tweets</h5>
+                  <hr />
+                    <div class="tweet"></div>
+                </div>
+              </div>
 
-        </div> <!-- /container -->
+              <div class="span4">
+                <div class="widget">
+                  <h5>Links Goes Here</h5>
+                  <hr />
+                  <div class="two-col">
+                    <div class="col-left">
+                      <ul>
+                        <li><a href="#">Condimentum</a></li>
+                        <li><a href="#">Etiam at</a></li>
+                        <li><a href="#">Fusce vel</a></li>
+                        <li><a href="#">Vivamus</a></li>
+                        <li><a href="#">Pellentesque</a></li>
+                        <li><a href="#">Vivamus</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-right">
+                      <ul>
+                        <li><a href="#">Condimentum</a></li>
+                        <li><a href="#">Etiam at</a></li>
+                        <li><a href="#">Fusce vel</a></li>
+                        <li><a href="#">Vivamus</a></li>
+                        <li><a href="#">Pellentesque</a></li>
+                        <li><a href="#">Vivamus</a></li>
+                      </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="Scripts/jquery-1.8.3.min.js"><\/script>')</script>
+            <hr />
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; 2012 | <a href="#">Your Site</a> - <a href="#">Home</a> | <a href="#">About Us</a> | <a href="#">Service</a> | <a href="#">Contact Us</a></p>
+      </div>
+    </div>
+  <div class="clearfix"></div>
+  </div>
+</footer> 	
 
-        <script src="Scripts/bootstrap.min.js"></script>
+<!-- Footer ends -->
 
-        <script src="Scripts/main.js"></script>
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-    </body>
+<!-- JS -->
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script> <!-- jQuery -->
+<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script> <!-- Bootstrap -->
+<script src="@Url.Content("~/Scripts/jquery.prettyPhoto.js")"></script> <!-- Pretty Photo -->
+<script src="@Url.Content("~/Scripts/filter.js")"></script> <!-- Filter for support page -->
+<script src="@Url.Content("~/Scripts/jquery.tweet.js")"></script> <!-- Twitter -->
+<script src="@Url.Content("~/Scripts/jquery.flexslider-min.js")"></script> <!-- Flex slider -->
+
+<script src="@Url.Content("~/Scripts/jquery.carouFredSel-6.1.0-packed.js")"></script> <!-- Carousel for recent posts -->
+<script src="@Url.Content("~/Scripts/custom.js")"></script> <!-- Custom codes -->
+
+</body>
 </html>

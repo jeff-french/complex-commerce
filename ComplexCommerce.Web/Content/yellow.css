@@ -1,0 +1,157 @@
+/* Yellow Color */
+
+a, a:visited{
+	color: #d7a443;
+}
+
+a:hover{
+	color: #ebb449;
+}
+
+.color{
+	color: #ebb449;
+}
+
+.button a, .button a:visited{
+background:#ebb449;
+}
+
+.button a:hover{
+background:#d7a443;
+}
+
+/* Header */
+
+header .hlinks > span{
+background: #ebb449;
+border: 1px solid #d7a443;
+}
+
+/* Navigation */
+
+.navbar-inner{
+background:#ebb449;
+border-top: 1px solid #d7a443;
+border-bottom: 1px solid #d7a443;
+}
+
+.navbar .btn{
+	background: #d7a443;
+}
+
+.navbar .btn:hover{
+	background: #ebb449;
+}
+
+.navbar .nav{
+  border-left: 1px solid #d7a443;	
+}
+
+.navbar .nav > li > a{
+   border-right: 1px solid #d7a443;
+}
+.navbar .nav > li > a:hover{
+	background: #d7a443 !important;
+}
+
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover,
+.navbar .nav .active > a:focus {
+	background: #d7a443 !important;
+}
+
+.dropdown-toggle{
+	background: #ebb449 !important;	
+}
+
+.nav-collapse .nav > li > a{
+	background: #ebb449 !important;	
+}
+
+/* Sidebar nav */
+
+#nav > li > a { 
+ border-left: 3px solid #ebb449;
+}
+
+/* Sidebar page navigation */
+
+#navi > li > a { 
+ border-left: 3px solid #ebb449;
+}
+
+
+/* Title */
+
+.title i{
+	color: #ebb449;
+}
+
+
+/* Recent posts carousel */
+
+.recent-posts .carousel_nav i{
+	background: #ebb449;	
+}
+
+.recent-posts .rp-details{
+	background: #ebb449;
+	border-top: 1px solid #d7a443;
+	border-bottom: 1px solid #d7a443;
+}
+
+.recent-posts .price{
+	background: #d7a443;
+}
+
+/* Blog */
+
+.posts .tags a{
+background:#ebb449;
+border:1px solid #d7a443;
+}
+
+.posts .tags a:hover{
+background:#d7a443;
+border:1px solid #d7a443;
+}
+
+.paging a:hover{
+background: #ebb449;
+border:1px solid #d7a443;
+}
+
+.paging .current{
+background: #ebb449;
+border:1px solid #d7a443;
+}
+
+/* Sidebar */
+
+.sidebar .widget{
+	border-top: 1px solid #ebb449;
+}
+
+
+/* Career */
+
+.nav-tabs > li > a:hover{
+	background: #ebb449;
+}
+
+
+/* Back to top */
+
+.totop a, .totop a:visited{
+	background: #ebb449;
+}
+
+.totop a:hover{
+	background: #d7a443;
+}
+
+/* Footer */
+
+footer{
+	border-top: 4px solid #ebb449;
+}

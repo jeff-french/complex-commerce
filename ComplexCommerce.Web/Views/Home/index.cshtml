@@ -1,28 +1,457 @@
 ﻿@{
     Layout = "Shared/_layout.cshtml";
 }
-<!-- Main hero unit for a primary marketing message or call to action -->
-<div class="hero-unit">
-    <h1>Hello, world!</h1>
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+<!-- Flex Slider starts -->
+
+<div class="container flex-main">
+  <div class="row">
+    <div class="span12">
+            
+            <div class="flex-image flexslider">
+              <ul class="slides">
+                  <!-- Each slide should be enclosed inside li tag. -->
+                  
+                  <!-- Slide #1 -->
+                <li>
+                  <!-- Image -->
+                  <img src="@Url.Content("~/Content/images/photos/slider1.jpg")" alt=""/>
+                  <!-- Caption -->
+                  <div class="flex-caption">
+                     <!-- Title -->
+                     <h3>Levi's T-Shirt - <span class="color">Just $49</span></h3>
+                     <!-- Para -->
+                     <p>Ut commodo ullamcorper risus nec mattis. Fusce imperdiet ornare dignissim. Donec aliquet convallis tortor, et placerat quam posuere posuere. Morbi tincidunt posuere turpis eu laoreet. </p>
+                     <div class="button">
+                      <a href="single-item.html">Buy Now</a>
+                     </div>
+                  </div>
+                </li>
+                
+                  <!-- Slide #2 -->
+                <li>
+                  <img src="@Url.Content("~/Content/images/photos/slider2.jpg")" alt=""/>
+                  <div class="flex-caption">
+                     <!-- Title -->
+                     <h3>Denim Jeans - <span class="color">Just $149</span></h3>
+                     <!-- Para -->
+                     <p>Ut commodo ullamcorper risus nec mattis. Fusce imperdiet ornare dignissim. Donec aliquet convallis tortor, et placerat quam posuere posuere. Morbi tincidunt posuere turpis eu laoreet. </p>
+                     <div class="button">
+                      <a href="single-item.html">Buy Now</a>
+                     </div>
+                  </div>                  
+                </li>
+                
+                <li>
+                  <img src="@Url.Content("~/Content/images/photos/slider3.jpg")" alt=""/>
+                  <div class="flex-caption">
+                     <!-- Title -->
+                     <h3>Polo Shirts - <span class="color">Just $79</span></h3>
+                     <!-- Para -->
+                     <p>Ut commodo ullamcorper risus nec mattis. Fusce imperdiet ornare dignissim. Donec aliquet convallis tortor, et placerat quam posuere posuere. Morbi tincidunt posuere turpis eu laoreet. </p>
+                     <div class="button">
+                      <a href="single-item.html">Buy Now</a>
+                     </div>
+                  </div>                  
+                </li>
+                
+                <li>
+                  <img src="@Url.Content("~/Content/images/photos/slider4.jpg")" alt=""/>
+                  <div class="flex-caption">
+                     <!-- Title -->
+                     <h3>Raymonds Suitings - <span class="color">Just $449</span></h3>
+                     <!-- Para -->
+                     <p>Ut commodo ullamcorper risus nec mattis. Fusce imperdiet ornare dignissim. Donec aliquet convallis tortor, et placerat quam posuere posuere. Morbi tincidunt posuere turpis eu laoreet. </p>
+                     <div class="button">
+                      <a href="single-item.html">Buy Now</a>
+                     </div>
+                  </div>                  
+                </li>
+                
+              </ul>
+            </div>
+
+    </div>
+  </div>
 </div>
 
-<!-- Example row of columns -->
-<div class="row">
-    <div class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
+<!-- Flex slider ends -->
+
+<!-- Promo box starts -->
+
+<div class="promo">
+  <div class="container">
+    <div class="row">
+
+      <!-- Red color promo box -->
+      <div class="span4">
+        <!-- rcolor =  Red color -->
+        <div class="pbox rcolor">
+          <div class="pcol-left">
+            <!-- Image -->
+            <a href="items.html"><img src="@Url.Content("~/Content/images/photos/promo-1.png")" alt="" /></a>
+          </div>
+          <div class="pcol-right">
+            <!-- Title -->
+            <p class="pmed"><a href="items.html">HTC One</a></p>
+            <!-- Para -->
+            <p class="psmall"><a href="items.html">Buy HTC Phones just for $250. Cheap. Dont miss this offer. Keep it checking for more.</a></p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+
+      <!-- Blue color promo box -->
+      <div class="span4">
+        <!-- bcolor =  Blue color -->
+        <div class="pbox bcolor">
+          <div class="pcol-left">
+            <a href="items.html"><img src="@Url.Content("~/Content/images/photos/promo-2.png")" alt="" /></a>
+          </div>
+          <div class="pcol-right">
+            <p class="pmed"><a href="items.html">Blackberry</a></p>
+            <p class="psmall"><a href="items.html">Buy Blackberry phones just for $250. Dont miss this offer. Keep it checking for more.</a></p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <!-- Green color promo box -->
+      <div class="span4">
+        <!-- gcolor =  Green Color -->
+        <div class="pbox gcolor">
+          <div class="pcol-left">
+            <a href="items.html"><img src="@Url.Content("~/Content/images/photos/promo-3.png")" alt="" /></a>
+          </div>
+          <div class="pcol-right">
+            <p class="pmed"><a href="items.html">Nokia Lumia</a></p>
+            <p class="psmall"><a href="items.html">Buy Nokia Lumia Phones just for $200. Dont miss  offer. Keep it checking for more.</a></p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
     </div>
-    <div class="span4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-    </div>
+  </div>
 </div>
+
+<!-- Promo box ends -->
+
+<!-- Items -->
+
+<div class="items">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h3 class="title">Popular Deals</h3>
+      </div>
+      <!-- Item #1 -->
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/2.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <!-- Use the span tag with the class "ico" and icon link (hot, sale, deal, new) -->
+            <h5><a href="single-item.html">HTC One V</a><span class="ico"><img src="@Url.Content("~/Content/images/hot.png")" alt="" /></span></h5>
+            <div class="clearfix"></div>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$360</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item #2 -->
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/3.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Dell One V</a></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$264</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>  
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/4.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Cannon One V</a><span class="ico"><img src="@Url.Content("~/Content/images/new.png")" alt="" /></span></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$160</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/5.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Apple One V</a><span class="ico"><img src="@Url.Content("~/Content/images/deal.png")" alt="" /></span></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$420</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/6.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Samsung One V</a></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$300</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/7.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Micromax One V</a><span class="ico"><img src="@Url.Content("~/Content/images/sale.png")" alt="" /></span></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$240</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/8.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Nokia One V</a></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$50</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="item">
+          <!-- Item image -->
+          <div class="item-image">
+            <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/9.png")" alt="" /></a>
+          </div>
+          <!-- Item details -->
+          <div class="item-details">
+            <!-- Name -->
+            <h5><a href="single-item.html">Sony One V</a></h5>
+            <!-- Para. Note more than 2 lines. -->
+            <p>Something about the product goes here. Not More than 2 lines.</p>
+            <hr />
+            <!-- Price -->
+            <div class="item-price pull-left">$100</div>
+            <!-- Add to cart -->
+            <div class="button pull-right"><a href="#">Add to Cart</a></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>                                                                      
+
+    </div>
+  </div>
+</div>
+
+<!-- Recent items carousel starts -->
+
+<div class="recent-posts">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <div class="bor"></div>
+        <h4 class="title">Recent Items</h4>
+        <div class="carousel_nav pull-right">
+          <!-- Navigation -->
+          <a class="prev" id="car_prev" href="#"><i class="icon-chevron-left"></i></a>
+          <a class="next" id="car_next" href="#"><i class="icon-chevron-right"></i></a>
+        </div>
+        <div class="clearfix"></div>
+        <ul class="rps-carousel">
+            <!-- Recent items #1 -->
+            <!-- Each item should be enclosed inside "li"  tag. -->
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">    
+                  <!-- Image -->    
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/2.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">HTC One V <span class="price pull-right">$225</span></a></h5>
+                    <div class="clearfix"></div>
+                    <!-- Description -->
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>
+            <!-- Recent items #2 -->
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">        
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/3.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">Sony Xperia Pro <span class="price pull-right">$525</span></a></h5>
+                    <div class="clearfix"></div>
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">        
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/4.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">Samsung Pop <span class="price pull-right">$255</span></a></h5>
+                    <div class="clearfix"></div>
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">        
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/5.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">Motorola Droid <span class="price pull-right">$325</span></a></h5>
+                    <div class="clearfix"></div>
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">        
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/6.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">Blackberry Force <span class="price pull-right">$125</span></a></h5>
+                    <div class="clearfix"></div>
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>
+            <li>
+                <div class="rp-item"> 
+                  <div class="rp-image">        
+                    <a href="single-item.html"><img src="@Url.Content("~/Content/images/photos/7.png")" alt=""/></a>
+                  </div>
+                  <div class="rp-details">
+                    <!-- Title and para -->
+                    <h5><a href="single-item.html">Pantech One <span class="price pull-right">$253</span></a></h5>
+                    <div class="clearfix"></div>
+                    <p>Travel far away to a space station.</p>         
+                  </div>                
+                </div>        
+            </li>                                                                                               
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Posts ends -->
+
+<!-- Newsletter starts -->
+
+<div class="container newsletter">
+  <div class="row">
+    <div class="span12">
+      <div class="well">
+               <h5><i class="icon-envelope-alt"></i> Hot Offers - Don't Miss Anything!!!</h5>
+               <p>Nulla facilisi. Sed justo dui, scelerisque ut consectetur vel, eleifend id erat. Morbi auctor adipiscing tempor. Phasellus condimentum rutrum aliquet.</p>
+               <form class="form-inline">
+                  <div class="controls controls-row">
+                    <input class="span3" type="text" placeholder="Enter your email to Subscribe">
+                    <button type="submit" class="btn">Subscribe</button>
+                  </div>
+               </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter ends -->
