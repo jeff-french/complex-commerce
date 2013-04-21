@@ -9,8 +9,14 @@ namespace ComplexCommerce.Web
     {
         public HomeModule()
         {
-            Get["/"] = paramaters => View["index"];
+            Get["/"] = paramaters =>
+                {
+                   
+                   return View["index"];
+                };
             Get["/hello"] = parameters => "Hello Mono!";
         }
+
+        
     }
 }

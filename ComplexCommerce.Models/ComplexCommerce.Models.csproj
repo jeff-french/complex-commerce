@@ -75,13 +75,18 @@
     <Compile Include="Artist.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="GenericResponseBase.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="InvoiceLine.cs" />
     <Compile Include="MediaType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\Albums.cs" />
     <Compile Include="Requests\Artists.cs" />
+    <Compile Include="Requests\Customers.cs" />
+    <Compile Include="Requests\Employees.cs" />
+    <Compile Include="Requests\Genres.cs" />
+    <Compile Include="Requests\Invoices.cs" />
+    <Compile Include="Requests\Tracks.cs" />
     <Compile Include="Track.cs" />
   </ItemGroup>
   <ItemGroup>

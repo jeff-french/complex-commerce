@@ -28,6 +28,21 @@ namespace ComplexCommerce.Services
                 .Add<Artist>("/artists", "POST")
                 .Add<Artist>("/artists/{ArtistId}")
                 .Add<Artists>("/artists", "GET,OPTIONS");
+
+            Routes
+                .Add<Genre>("/genres", "POST")
+                .Add<Genre>("/genres/{GenreId}")
+                .Add<Genres>("/genres", "GET,OPTIONS");
+
+            Routes
+                .Add<Album>("/albums", "POST")
+                .Add<Album>("/albums/{AlbumId}")
+                .Add<Albums>("/albums", "GET,OPTIONS");
+
+            Routes
+                .Add<Track>("/tracks", "POST")
+                .Add<Track>("/tracks/{TrackId}")
+                .Add<Tracks>("/tracks", "GET,OPTIONS");
         }
     }
 }

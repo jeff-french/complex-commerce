@@ -9,7 +9,7 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ComplexCommerce.Models
 {
-    public class Album : IReturn<AlbumResponse>
+    public class Album
     {
         [AutoIncrement]
         public int AlbumId { get; set; }
@@ -22,7 +22,4 @@ namespace ComplexCommerce.Models
         [References(typeof(Artist))]
         public int ArtistId { get; set; }
     }
-
-    public class AlbumResponse : GenericResponseBase<Album>
-    {}
 }
