@@ -175,6 +175,7 @@
     <Content Include="Content\sidebar-nav.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\yellow.css" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome\fontawesome-webfont.eot" />
