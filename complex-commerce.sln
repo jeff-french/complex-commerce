@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexCommerce.Models", "C
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ComplexCommerce.Data.SqlServer", "ComplexCommerce.Data.SqlServer\ComplexCommerce.Data.SqlServer.sqlproj", "{4FC89328-8194-421F-B946-A92E4408E106}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexCommerce.Mailer", "ComplexCommerce.Mailer\ComplexCommerce.Mailer.csproj", "{4063FBB0-3FDE-463A-AD88-E518332158F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexCommerce.ServiceBus", "ComplexCommerce.ServiceBus\ComplexCommerce.ServiceBus.csproj", "{8F98773F-5933-4AA6-8B34-DB05AE593C66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,14 @@ Global
 		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FC89328-8194-421F-B946-A92E4408E106}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4063FBB0-3FDE-463A-AD88-E518332158F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4063FBB0-3FDE-463A-AD88-E518332158F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4063FBB0-3FDE-463A-AD88-E518332158F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4063FBB0-3FDE-463A-AD88-E518332158F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F98773F-5933-4AA6-8B34-DB05AE593C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F98773F-5933-4AA6-8B34-DB05AE593C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F98773F-5933-4AA6-8B34-DB05AE593C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F98773F-5933-4AA6-8B34-DB05AE593C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
