@@ -20,18 +20,14 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <WebProjectOutputDirInsideProjectDefault>True</WebProjectOutputDirInsideProjectDefault>
     <WebProjectOutputDirInsideProjectDefault  Condition="('$(OutDir)' != '$(OutputPath)') Or ('$(IsDesktopBuild)' == 'False')" >False</WebProjectOutputDirInsideProjectDefault>
     <WebProjectOutputDirInsideProject Condition="'$(WebProjectOutputDirInsideProject)' == ''">$(WebProjectOutputDirInsideProjectDefault)</WebProjectOutputDirInsideProject>
+    <WebProjectOutputDir>$(MSBuildProjectDirectory)</WebProjectOutputDir>
+    <WebProjectOutputDir Condition="!$(WebProjectOutputDirInsideProject)">$(OutDir)_PublishedWebsites\$(MSBuildProjectName)</WebProjectOutputDir>
     <DisableLinkInCopyWebApplicaton Condition="'$(DisableLinkInCopyWebApplicaton)'==''">False</DisableLinkInCopyWebApplicaton>
     <Disable_CopyWebApplication Condition="'$(Disable_CopyWebApplication)' == ''">False</Disable_CopyWebApplication>
     <UseWPP_CopyWebApplication Condition="'$(UseWPP_CopyWebApplication)' == ''">False</UseWPP_CopyWebApplication>
     <CleanWebProjectOutputDir>True</CleanWebProjectOutputDir>
     <CleanWebProjectOutputDir Condition="$(WebProjectOutputDirInsideProject)" >False</CleanWebProjectOutputDir>
-  </PropertyGroup>
-
-  <!--Only setup $(WebProjectOutputDir) iff user haven't set it up-->
-  <PropertyGroup Condition="'$(WebProjectOutputDir)'==''">
-    <WebProjectOutputDir>$(MSBuildProjectDirectory)</WebProjectOutputDir>
-    <WebProjectOutputDir Condition="!$(WebProjectOutputDirInsideProject)">$(OutDir)_PublishedWebsites\$(MSBuildProjectName)</WebProjectOutputDir>
-  </PropertyGroup>
+</PropertyGroup>
 
   <PropertyGroup>
     <PrepareForRunDependsOn>
@@ -211,7 +207,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
     <!-- Copy items that need to be bin deployed to the bin folder -->
     <Copy SourceFiles="@(_binDeployableAssemblies)" 
-          DestinationFolder="$(WebProjectOutputDir)\bin\%(_binDeployableAssemblies.DestinationRelPath)" 
+          DestinationFolder="$(WebProjectOutputDir)\bin\%(RecursiveDir)" 
           SkipUnchangedFiles="true" 
           Retries="$(CopyRetryCount)"
           RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"/>
@@ -285,8 +281,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <!--
         When building this project from the IDE or when building a .SLN from the command-line,
         just gather the referenced build outputs (Xap files).  The code that builds the .SLN will already have
-        built the project, so there's no need to do it again here. Since Silverlight only supports AnyCPU that is
-        what we use for the platform
+        built the project, so there's no need to do it again here.
 
         The ContinueOnError setting is here so that, during project load, as
         much information as possible will be passed to the compilers.
@@ -295,7 +290,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
             Projects="@(_SilverlightApplications)"
             Targets="GetXapOutputFile"
             BuildInParallel= "false"
-            Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration);Platform=AnyCPU;BuildingSolutionFile=false"
+            Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration);%(_MSBuildProjectReferenceExistent.SetPlatform);BuildingSolutionFile=false"
             Condition="'@(_SilverlightApplications)' != ''"
             ContinueOnError="!$(BuildingProject)">
 
@@ -313,7 +308,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <MSBuild
         Projects="@(_SilverlightApplications)"
         Targets="$(ProjectReferenceBuildTargets)"
-        Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration);Platform=AnyCPU;BuildingSolutionFile=false"
+        Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration);%(_MSBuildProjectReferenceExistent.SetPlatform);BuildingSolutionFile=false"
         BuildInParallel="false"
         Condition="'$(BuildingInsideVisualStudio)' != 'true' and '@(_SilverlightApplications)' != ''">
     </MSBuild>
@@ -344,34 +339,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       Name="_CopyBinDeployableAssemblies"
       Condition="Exists('$(MSBuildProjectDirectory)\_bin_deployableAssemblies')">
 
-    <PropertyGroup>
-      <BinDeployableFolder Condition="'$(BinDeployableFolder)' == ''">_bin_deployableAssemblies\</BinDeployableFolder>
-      <BinDeployableFolderFullPath>$([System.IO.Path]::GetFullPath($(BinDeployableFolder)))</BinDeployableFolderFullPath>
-    </PropertyGroup>
-
-    <!--Pick up the deployable items from the $(None) collection that are under the _bin_deployableAssemblies folder -->
-    <CreateItem Include="@(None->'%(Identity)')" Condition="'%(None.FullPath)' != '' And  $([System.String]::new('%(None.FullPath)').StartsWith($(BinDeployableFolderFullPath), StringComparison.OrdinalIgnoreCase ))" >
-      <Output ItemName="__binDeployableAssemblies" TaskParameter="Include"/>
+    <CreateItem Include="$(MSBuildProjectDirectory)\_bin_deployableAssemblies\**\*.*" Condition="Exists('$(MSBuildProjectDirectory)\_bin_deployableAssemblies')">
+      <Output ItemName="_binDeployableAssemblies" TaskParameter="Include"/>
     </CreateItem>
 
-    <!--Add metadata which holds the destination relative folder to copy them to-->
-    <ItemGroup>
-      <_binDeployableAssemblies Include ="@(__binDeployableAssemblies)" Condition="'@(__binDeployableAssemblies)' != ''">
-        <DestinationRelPath>$([System.String]::Concat($([System.IO.Path]::GetDirectoryName($([System.String]::new('%(__binDeployableAssemblies.FullPath)')))),'\').SubString($(BinDeployableFolderFullPath.Length)))</DestinationRelPath>
-      </_binDeployableAssemblies>
-    </ItemGroup>
-
-    <!-- Do the copy-->
-    <Copy SourceFiles="@(_binDeployableAssemblies)" DestinationFolder="$(OutDir)%(_binDeployableAssemblies.DestinationRelPath)"
+      <Copy SourceFiles="@(_binDeployableAssemblies)" DestinationFolder="$(OutDir)\%(RecursiveDir)" 
           SkipUnchangedFiles="true"
           Retries="$(CopyRetryCount)"
           RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"/>
 
-    <!--Add the items just copied to the collection of items to delete when doing a clean-->
-    <ItemGroup>
-      <FileWrites Include ="@(_binDeployableAssemblies->'$(OutDir)%(DestinationRelPath)%(Filename)%(Extension)')" />
-    </ItemGroup>
- </Target>
+  </Target>
 
   <!--Import publishing target-->
   <Import Project="..\Web\Microsoft.Web.Publishing.targets" Condition="Exists('..\Web\Microsoft.Web.Publishing.targets')" />

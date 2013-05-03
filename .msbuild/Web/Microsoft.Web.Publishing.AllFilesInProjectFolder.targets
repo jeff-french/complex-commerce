@@ -11,19 +11,12 @@ This file defines the steps in the standard package/publish process for collecti
 Copyright (C) Microsoft Corporation. All rights reserved.
 ***********************************************************************************************
 -->
-<Project  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--Import task from our dll-->
-  <UsingTask TaskName="CollectFilesinFolder" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-  <UsingTask TaskName="EscapeTextForRegularExpressions" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-  <UsingTask TaskName="FilterByItems" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-  <UsingTask TaskName="GetPublishingLocalizedString" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-
-  <!--ImportBefore Extension-->
-  <PropertyGroup>
-    <ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInProjectFolderTargets Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInProjectFolderTargets)'==''">true</ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInProjectFolderTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore\*" Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInProjectFolderTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore')"/>
-
+  <UsingTask TaskName="CollectFilesinFolder" AssemblyFile="Microsoft.Web.Publishing.Tasks.dll"/>
+  <UsingTask TaskName="EscapeTextForRegularExpressions" AssemblyFile="Microsoft.Web.Publishing.Tasks.dll"/>
+  <UsingTask TaskName="FilterByItems" AssemblyFile="Microsoft.Web.Publishing.Tasks.dll"/>
+  <UsingTask TaskName="GetPublishingLocalizedString" AssemblyFile="Microsoft.Web.Publishing.Tasks.dll"/>
 
   <PropertyGroup>
     <PublishPipelineCollectFilesCore>
@@ -94,10 +87,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromProjectFolder_ExcludeSccFiles -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromProjectFolder_ExcludeSccFilesDependsOn>
-      $(OnBeforeCollectFilesFromProjectFolder_ExcludeSccFiles);
-      $(CollectFilesFromProjectFolder_ExcludeSccFilesDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromProjectFolder_ExcludeSccFiles Condition="'$(OnBeforeCollectFilesFromProjectFolder_ExcludeSccFiles)'==''">
       SetExcludeFromProjectFolder;
+    </OnBeforeCollectFilesFromProjectFolder_ExcludeSccFiles>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromProjectFolder_ExcludeSccFiles Condition="'$(OnAfterCollectFilesFromProjectFolder_ExcludeSccFiles)'==''">
+    </OnAfterCollectFilesFromProjectFolder_ExcludeSccFiles>
+
+    <CollectFilesFromProjectFolder_ExcludeSccFilesDependsOn Condition="'$(CollectFilesFromProjectFolder_ExcludeSccFilesDependsOn)'==''">
+      $(OnBeforeCollectFilesFromProjectFolder_ExcludeSccFiles);
     </CollectFilesFromProjectFolder_ExcludeSccFilesDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromProjectFolder_ExcludeSccFiles"
@@ -117,11 +116,17 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromProjectFolder -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromProjectFolderDependsOn>
-      $(OnBeforeCollectFilesFromProjectFolder);
-      $(CollectFilesFromProjectFolderDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromProjectFolder Condition="'$(OnBeforeCollectFilesFromProjectFolder)'==''">
       SetExcludeFromProjectFolder;
       CollectFilesFromProjectFolder_ExcludeSccFiles;
+    </OnBeforeCollectFilesFromProjectFolder>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromProjectFolder Condition="'$(OnAfterCollectFilesFromProjectFolder)'==''">
+    </OnAfterCollectFilesFromProjectFolder>
+
+    <CollectFilesFromProjectFolderDependsOn Condition="'$(CollectFilesFromProjectFolderDependsOn)'==''">
+      $(OnBeforeCollectFilesFromProjectFolder);      
     </CollectFilesFromProjectFolderDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromProjectFolder"
@@ -134,10 +139,13 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
     <CollectFilesinFolder RootPath="$(WebPublishPipelineProjectDirectory)"
                           ExcludeFullPathMatchs="$(_ExcludeFullPathFromProjectFolder)"
-                          ExcludeRelativePathMatchs="$(_ExcludeRelativePathFromProjectFolder)" 
-                          SkipHiddenItems="$(_SkipHiddenItems)">
+                          ExcludeRelativePathMatchs="$(_ExcludeRelativePathFromProjectFolder)" >
       <Output TaskParameter="Result" ItemName="_AllFilesUnderProjectFolderNoMetadata" />
     </CollectFilesinFolder>
+    
+    
+    
+    
     
 
     <!--The first two lines keeps the _KnowProjectItem's item metadata-->
@@ -170,12 +178,4 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     </ItemGroup>
     <CallTarget Targets="$(OnAfterCollectFilesFromProjectFolder)" RunEachTargetSeparately="false" />
   </Target>
-
-  <!--ImportAfter Extension-->
-  <PropertyGroup>
-    <ImportByWildcardAfterMicrosoftWebPublishingAllFilesInProjectFolderTargets Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingAllFilesInProjectFolderTargets)'==''">true</ImportByWildcardAfterMicrosoftWebPublishingAllFilesInProjectFolderTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter\*" Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingAllFilesInProjectFolderTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter')"/>
-
-</Project>
-
+ </Project>

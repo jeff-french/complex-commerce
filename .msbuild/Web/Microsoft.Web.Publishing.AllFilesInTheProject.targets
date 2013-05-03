@@ -11,12 +11,8 @@ This file defines the steps in the standard package/publish process for collecti
 Copyright (C) Microsoft Corporation. All rights reserved.
 ***********************************************************************************************
 -->
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!--ImportBefore Extension-->
-  <PropertyGroup>
-    <ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInTheProjectTargets Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInTheProjectTargets)'==''">true</ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInTheProjectTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore\*" Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingAllFilesInTheProjectTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore')"/>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
 
   <!--The following property need to set before import of Microsoft.Web.Publishing.OnlyFilesToRunTheApp.targets or it will set the property first-->
   <PropertyGroup>
@@ -47,9 +43,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromCompile -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromCompileDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromCompile Condition="'$(OnBeforeCollectFilesFromCompile)'==''">
+    </OnBeforeCollectFilesFromCompile>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromCompile Condition="'$(OnAfterCollectFilesFromCompile)'==''">
+    </OnAfterCollectFilesFromCompile>
+
+    <CollectFilesFromCompileDependsOn Condition="'$(CollectFilesFromCompileDependsOn)'==''">
       $(OnBeforeCollectFilesFromCompile);
-      $(CollectFilesFromCompileDependsOn);
     </CollectFilesFromCompileDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromCompile"
@@ -86,9 +88,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromEmbeddedResource -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromEmbeddedResourceDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromEmbeddedResource Condition="'$(OnBeforeCollectFilesFromEmbeddedResource)'==''">
+    </OnBeforeCollectFilesFromEmbeddedResource>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromEmbeddedResource Condition="'$(OnAfterCollectFilesFromEmbeddedResource)'==''">
+    </OnAfterCollectFilesFromEmbeddedResource>
+
+    <CollectFilesFromEmbeddedResourceDependsOn Condition="'$(CollectFilesFromEmbeddedResourceDependsOn)'==''">
       $(OnBeforeCollectFilesFromEmbeddedResource);
-      $(CollectFilesFromEmbeddedResourceDependsOn);
     </CollectFilesFromEmbeddedResourceDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromEmbeddedResource"
@@ -124,9 +132,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromNone -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromNoneDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromNone Condition="'$(OnBeforeCollectFilesFromNone)'==''">
+    </OnBeforeCollectFilesFromNone>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromNone Condition="'$(OnAfterCollectFilesFromNone)'==''">
+    </OnAfterCollectFilesFromNone>
+
+    <CollectFilesFromNoneDependsOn Condition="'$(CollectFilesFromNoneDependsOn)'==''">
       $(OnBeforeCollectFilesFromNone);
-      $(CollectFilesFromNoneDependsOn);
     </CollectFilesFromNoneDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromNone"
@@ -162,9 +176,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromBaseApplicationManifest -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromBaseApplicationManifestDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromBaseApplicationManifest Condition="'$(OnBeforeCollectFilesFromBaseApplicationManifest)'==''">
+    </OnBeforeCollectFilesFromBaseApplicationManifest>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromBaseApplicationManifest Condition="'$(OnAfterCollectFilesFromBaseApplicationManifest)'==''">
+    </OnAfterCollectFilesFromBaseApplicationManifest>
+
+    <CollectFilesFromBaseApplicationManifestDependsOn Condition="'$(CollectFilesFromBaseApplicationManifestDependsOn)'==''">
       $(OnBeforeCollectFilesFromBaseApplicationManifest);
-      $(CollectFilesFromBaseApplicationManifestDependsOn);
     </CollectFilesFromBaseApplicationManifestDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromBaseApplicationManifest"
@@ -202,9 +222,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromProjectFile -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromProjectFileDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromProjectFile Condition="'$(OnBeforeCollectFilesFromProjectFile)'==''">
+    </OnBeforeCollectFilesFromProjectFile>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromProjectFile Condition="'$(OnAfterCollectFilesFromProjectFile)'==''">
+    </OnAfterCollectFilesFromProjectFile>
+
+    <CollectFilesFromProjectFileDependsOn Condition="'$(CollectFilesFromProjectFileDependsOn)'==''">
       $(OnBeforeCollectFilesFromProjectFile);
-      $(CollectFilesFromProjectFileDependsOn);
     </CollectFilesFromProjectFileDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromProjectFile"
@@ -232,11 +258,5 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     </ItemGroup>
     <CallTarget Targets="$(OnAfterCollectFilesFromProjectFile)" RunEachTargetSeparately="false" />
   </Target>
-
-  <!--ImportAfter Extension-->
-  <PropertyGroup>
-    <ImportByWildcardAfterMicrosoftWebPublishingAllFilesInTheProjectTargets Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingAllFilesInTheProjectTargets)'==''">true</ImportByWildcardAfterMicrosoftWebPublishingAllFilesInTheProjectTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter\*" Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingAllFilesInTheProjectTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter')"/>
 
 </Project>

@@ -11,17 +11,10 @@ This file defines the steps in the standard package/publish process for collecti
 Copyright (C) Microsoft Corporation. All rights reserved.
 ***********************************************************************************************
 -->
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--Import task from our dll-->
-  <UsingTask TaskName="GetPublishingLocalizedString" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-  <UsingTask TaskName="FilterByItems" AssemblyFile="..\Microsoft.Web.Publishing.Tasks.dll"/>
-
-  <!--ImportBefore Extension-->
-  <PropertyGroup>
-    <ImportByWildcardBeforeMicrosoftWebPublishingOnlyFilesToRunTheAppTargets Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingOnlyFilesToRunTheAppTargets)'==''">true</ImportByWildcardBeforeMicrosoftWebPublishingOnlyFilesToRunTheAppTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore\*" Condition="'$(ImportByWildcardBeforeMicrosoftWebPublishingOnlyFilesToRunTheAppTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportBefore')"/>
-
+  <UsingTask TaskName="GetPublishingLocalizedString" AssemblyFile="Microsoft.Web.Publishing.Tasks.dll"/>
+  
   <PropertyGroup>
     <PublishPipelineCollectFilesCore>
       $(PublishPipelineCollectFilesCore);
@@ -45,9 +38,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Note $(OutDir) can be not in the bin like in Team build system -->
   <!--***************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromIntermediateAssemblyDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromIntermediateAssembly Condition="'$(OnBeforeCollectFilesFromIntermediateAssembly)'==''">
+    </OnBeforeCollectFilesFromIntermediateAssembly>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromIntermediateAssembly Condition="'$(OnAfterCollectFilesFromIntermediateAssembly)'==''">
+    </OnAfterCollectFilesFromIntermediateAssembly>
+
+    <CollectFilesFromIntermediateAssemblyDependsOn Condition="'$(CollectFilesFromIntermediateAssemblyDependsOn)'==''">
       $(OnBeforeCollectFilesFromIntermediateAssembly);
-      $(CollectFilesFromIntermediateAssemblyDependsOn);
     </CollectFilesFromIntermediateAssemblyDependsOn>
   </PropertyGroup>
 
@@ -90,9 +89,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromContent -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromContentDependsOn>
-      $(OnBeforeCollectFilesFromContent);
-      $(CollectFilesFromContentDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromContent Condition="'$(OnBeforeCollectFilesFromContent)'==''">
+    </OnBeforeCollectFilesFromContent>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromContent Condition="'$(OnAfterCollectFilesFromContent)'==''">
+    </OnAfterCollectFilesFromContent>
+
+    <CollectFilesFromContentDependsOn Condition="'$(CollectFilesFromContentDependsOn)'==''">
+      $(OnBeforeCollectFilesFromContent);      
     </CollectFilesFromContentDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromContent"
@@ -128,9 +133,14 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromAddModules -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromAddModulesDependsOn>
-      $(OnBeforeCollectFilesFromAddModulesDependsOn);
-      $(CollectFilesFromAddModulesDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromAddModulesDependsOn Condition="'$(OnBeforeCollectFilesFromAddModulesDependsOn)'==''">
+    </OnBeforeCollectFilesFromAddModulesDependsOn>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromAddModulesDependsOn Condition="'$(OnAfterCollectFilesFromAddModulesDependsOn)'==''">
+    </OnAfterCollectFilesFromAddModulesDependsOn>
+    <CollectFilesFromAddModulesDependsOn Condition="'$(CollectFilesFromAddModulesDependsOn)'==''">
+      $(OnBeforeCollectFilesFromAddModulesDependsOn);      
     </CollectFilesFromAddModulesDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromAddModules"
@@ -158,9 +168,14 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFrom_SGenDllCreated -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFrom_SGenDllCreatedDependsOn>
-      $(OnBeforeCollectFilesFrom_SGenDllCreated);
-      $(CollectFilesFrom_SGenDllCreatedDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFrom_SGenDllCreated Condition="'$(OnBeforeCollectFilesFrom_SGenDllCreated)'==''">
+    </OnBeforeCollectFilesFrom_SGenDllCreated>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFrom_SGenDllCreated Condition="'$(OnAfterCollectFilesFrom_SGenDllCreated)'==''">
+    </OnAfterCollectFilesFrom_SGenDllCreated>
+    <CollectFilesFrom_SGenDllCreatedDependsOn Condition="'$(CollectFilesFrom_SGenDllCreatedDependsOn)'==''">
+      $(OnBeforeCollectFilesFrom_SGenDllCreated);      
     </CollectFilesFrom_SGenDllCreatedDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFrom_SGenDllCreated"
@@ -188,13 +203,20 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromIntermediateSatelliteAssembliesWithTargetPath -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn>
-      $(OnBeforeCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath);
-      $(CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath Condition="'$(OnBeforeCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath)'==''">
+    </OnBeforeCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath Condition="'$(OnAfterCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath)'==''">
+    </OnAfterCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath>
+    <CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn
+      Condition="'$(CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn)'==''">
+      $(OnBeforeCollectFilesFromIntermediateSatelliteAssembliesWithTargetPath);      
     </CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromIntermediateSatelliteAssembliesWithTargetPath"
           DependsOnTargets="$(CollectFilesFromIntermediateSatelliteAssembliesWithTargetPathDependsOn)">
+
     <!--Get Localized string before display message-->
     <GetPublishingLocalizedString
       ID="PublishLocalizedString_GatherSpecificOutputsFromProject"
@@ -219,11 +241,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromReference -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromReferenceDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromReference Condition="'$(OnBeforeCollectFilesFromReference)'==''">
+    </OnBeforeCollectFilesFromReference>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromReference Condition="'$(OnAfterCollectFilesFromReference)'==''">
+    </OnAfterCollectFilesFromReference>
+
+    <CollectFilesFromReferenceDependsOn Condition="'$(CollectFilesFromReferenceDependsOn)'==''">
       $(OnBeforeCollectFilesFromReference);
-      $(CollectFilesFromReferenceDependsOn);
-      ResolveProjectReferences;
-      ResolveAssemblyReferences;
+      ResolveAssemblyReferences;      
     </CollectFilesFromReferenceDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromReference"
@@ -263,9 +290,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromAllExtraReferenceFiles -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromAllExtraReferenceFilesDependsOn>
-      $(OnBeforeCollectFilesFromAllExtraReferenceFiles);
-      $(CollectFilesFromAllExtraReferenceFilesDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromAllExtraReferenceFiles Condition="'$(OnBeforeCollectFilesFromAllExtraReferenceFiles)'==''">
+    </OnBeforeCollectFilesFromAllExtraReferenceFiles>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromAllExtraReferenceFiles Condition="'$(OnAfterCollectFilesFromAllExtraReferenceFiles)'==''">
+    </OnAfterCollectFilesFromAllExtraReferenceFiles>
+
+    <CollectFilesFromAllExtraReferenceFilesDependsOn Condition="'$(CollectFilesFromAllExtraReferenceFilesDependsOn)'==''">
+      $(OnBeforeCollectFilesFromAllExtraReferenceFiles);      
     </CollectFilesFromAllExtraReferenceFilesDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromAllExtraReferenceFiles"
@@ -293,10 +326,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFrom_SourceItemsToCopyToOutputDirectory -->
   <!--********************************************************************-->
   <PropertyGroup>
-    
-    <CollectFilesFrom_SourceItemsToCopyToOutputDirectoryDependsOn>
-      $(OnBeforeCollectFilesFrom_SourceItemsToCopyToOutputDirectory);
-      $(CollectFilesFrom_SourceItemsToCopyToOutputDirectoryDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFrom_SourceItemsToCopyToOutputDirectory Condition="'$(OnBeforeCollectFilesFrom_SourceItemsToCopyToOutputDirectory)'==''">
+    </OnBeforeCollectFilesFrom_SourceItemsToCopyToOutputDirectory>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFrom_SourceItemsToCopyToOutputDirectory Condition="'$(OnAfterCollectFilesFrom_SourceItemsToCopyToOutputDirectory)'==''">
+    </OnAfterCollectFilesFrom_SourceItemsToCopyToOutputDirectory>
+
+    <CollectFilesFrom_SourceItemsToCopyToOutputDirectoryDependsOn Condition="'$(CollectFilesFrom_SourceItemsToCopyToOutputDirectoryDependsOn)'==''">
+      $(OnBeforeCollectFilesFrom_SourceItemsToCopyToOutputDirectory);      
     </CollectFilesFrom_SourceItemsToCopyToOutputDirectoryDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFrom_SourceItemsToCopyToOutputDirectory"
@@ -331,9 +369,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFromDocFileItem -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFromDocFileItemDependsOn>
-      $(OnBeforeCollectFilesFromDocFileItem);
-      $(CollectFilesFromDocFileItemDependsOn);
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFromDocFileItem Condition="'$(OnBeforeCollectFilesFromDocFileItem)'==''">
+    </OnBeforeCollectFilesFromDocFileItem>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFromDocFileItem Condition="'$(OnAfterCollectFilesFromDocFileItem)'==''">
+    </OnAfterCollectFilesFromDocFileItem>
+
+    <CollectFilesFromDocFileItemDependsOn Condition="'$(CollectFilesFromDocFileItemDependsOn)'==''">
+      $(OnBeforeCollectFilesFromDocFileItem);      
     </CollectFilesFromDocFileItemDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFromDocFileItem"
@@ -362,9 +406,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFrom_WebApplicationSilverlightXapFiles -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFrom_WebApplicationSilverlightXapFilesDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFrom_WebApplicationSilverlightXapFiles Condition="'$(OnBeforeCollectFilesFrom_WebApplicationSilverlightXapFiles)'==''">
+    </OnBeforeCollectFilesFrom_WebApplicationSilverlightXapFiles>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFrom_WebApplicationSilverlightXapFiles Condition="'$(OnAfterCollectFilesFrom_WebApplicationSilverlightXapFiles)'==''">
+    </OnAfterCollectFilesFrom_WebApplicationSilverlightXapFiles>
+
+    <CollectFilesFrom_WebApplicationSilverlightXapFilesDependsOn Condition="'$(CollectFilesFrom_WebApplicationSilverlightXapFilesDependsOn)'==''">
       $(OnBeforeCollectFilesFrom_WebApplicationSilverlightXapFiles);
-      $(CollectFilesFrom_WebApplicationSilverlightXapFilesDependsOn);
     </CollectFilesFrom_WebApplicationSilverlightXapFilesDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFrom_WebApplicationSilverlightXapFiles"
@@ -397,49 +447,35 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   <!-- Task CollectFilesFrom_binDeployableAssemblies -->
   <!--********************************************************************-->
   <PropertyGroup>
-    <CollectFilesFrom_binDeployableAssembliesDependsOn>
+    <!--Targets get execute before this Target-->
+    <OnBeforeCollectFilesFrom_binDeployableAssemblies Condition="'$(OnBeforeCollectFilesFrom_binDeployableAssemblies)'==''">
+    </OnBeforeCollectFilesFrom_binDeployableAssemblies>
+    <!--Targets get execute after this Target-->
+    <OnAfterCollectFilesFrom_binDeployableAssemblies Condition="'$(OnAfterCollectFilesFrom_binDeployableAssemblies)'==''">
+    </OnAfterCollectFilesFrom_binDeployableAssemblies>
+
+    <CollectFilesFrom_binDeployableAssembliesDependsOn Condition="'$(CollectFilesFrom_binDeployableAssembliesDependsOn)'==''">
       $(OnBeforeCollectFilesFrom_binDeployableAssemblies);
-      $(CollectFilesFrom_binDeployableAssembliesDependsOn);
       _CopyBinDeployableAssemblies;
     </CollectFilesFrom_binDeployableAssembliesDependsOn>
   </PropertyGroup>
   <Target Name="CollectFilesFrom_binDeployableAssemblies"
           DependsOnTargets="$(CollectFilesFrom_binDeployableAssembliesDependsOn)">
-    <!--Make sure binDeployableAssemblies is in None group.  This is mainly for the dev10-->
-    <FilterByItems PipelineItems="@(_binDeployableAssemblies)"
-                   SourceMetadataName="FullPath"
-                   Filter="@(None)"
-                   FilterMetadataName="FullPath">
-      <Output TaskParameter="InFilter" ItemName="_binDeployableAssemblies_None"/>
-    </FilterByItems>
     <!--Get Localized string before display message-->
     <GetPublishingLocalizedString
       ID="PublishLocalizedString_GatherSpecificItemsFromProject"
       ArgumentCount="1"
       Arguments="_binDeployableAssemblies"
       LogType="Message" />
-    <Message Text="@(_binDeployableAssemblies_None)" />
-    
+    <Message Text="@(_binDeployableAssemblies)" />
     <ItemGroup>
-      <FilesForPackagingFromProject Include="@(_binDeployableAssemblies_None)" Condition="'%(_binDeployableAssemblies_None.DestinationRelPath)'==''">
+      <FilesForPackagingFromProject Include="@(_binDeployableAssemblies)">
         <DestinationRelativePath>bin\%(RecursiveDir)%(FileName)%(Extension)</DestinationRelativePath>
-        <FromTarget>CollectFilesFrom_binDeployableAssemblies_NoDestinationRelPath</FromTarget>
-        <Category>Run</Category>
-      </FilesForPackagingFromProject>
-      <!--VS11, _binDeployAssembly begin to have %(DestinationRelPath), we should honer that instead of %(recursiveDir)-->
-      <FilesForPackagingFromProject Include="@(_binDeployableAssemblies_None)" Condition="'%(_binDeployableAssemblies_None.DestinationRelPath)'!=''">
-        <DestinationRelativePath>bin\%(_binDeployableAssemblies_None.DestinationRelPath)%(FileName)%(Extension)</DestinationRelativePath>
-        <FromTarget>CollectFilesFrom_binDeployableAssemblies_WithDestinationRelPath</FromTarget>
+        <FromTarget>CollectFilesFrom_binDeployableAssemblies</FromTarget>
         <Category>Run</Category>
       </FilesForPackagingFromProject>
     </ItemGroup>
     <CallTarget Targets="$(OnAfterCollectFilesFrom_binDeployableAssemblies)" RunEachTargetSeparately="false" />
   </Target>
-
-  <!--ImportAfter Extension-->
-  <PropertyGroup>
-    <ImportByWildcardAfterMicrosoftWebPublishingOnlyFilesToRunTheAppTargets Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingOnlyFilesToRunTheAppTargets)'==''">true</ImportByWildcardAfterMicrosoftWebPublishingOnlyFilesToRunTheAppTargets>
-  </PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter\*" Condition="'$(ImportByWildcardAfterMicrosoftWebPublishingOnlyFilesToRunTheAppTargets)' == 'true' and exists('$(MSBuildThisFileDirectory)\$(MSBuildThisFileName)\ImportAfter')"/>
 
 </Project>
