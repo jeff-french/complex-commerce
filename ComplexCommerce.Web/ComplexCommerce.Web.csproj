@@ -196,7 +196,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Home\index.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <None Include="Views\Shared\_layout.cshtml" />
+    <Content Include="Views\Shared\_layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
