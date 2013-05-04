@@ -182,6 +182,7 @@
     <Content Include="Content\font-awesome\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome\fontawesome-webfont.woff" />
     <Content Include="Content\images\icon-psd.psd" />
+    <Content Include="ComplexCommerce.Web.nuspec" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\filter.js" />
