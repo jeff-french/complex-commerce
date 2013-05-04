@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetExt Condition="$(TargetExt) == ''">.sql</TargetExt>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="$(ReadyRollExtensionPath)ReadyRoll.dll" TaskName="DBBuildTask" />
+  <UsingTask AssemblyFile="$(ReadyRollExtensionPath)ReadyRoll.dll" TaskName="DBDeployTask" />
+  <UsingTask AssemblyFile="$(ReadyRollExtensionPath)ReadyRoll.dll" TaskName="DBPatchTask" />
+
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VSTSDBExtensionPath Condition="'$(VSTSDBExtensionPath)' == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\TeamData\</VSTSDBExtensionPath>
+  </PropertyGroup>
+  <Import Project="$(VSTSDBExtensionPath)Microsoft.Data.Schema.SqlTasks.targets" />
+  <PropertyGroup>
+    <SqlTargetName Condition="'$(SqlTargetName)' == ''">$(MSBuildProjectName)</SqlTargetName>
+    <CreateScriptFileName Condition="'$(CreateScriptFileName)' == ''">$(SqlTargetName)_Create.sql</CreateScriptFileName>
+    <DeployScriptFileName Condition="'$(DeployScriptFileName)' == ''">$(SqlTargetName).sql</DeployScriptFileName>
+    <TargetDatabase Condition="'$(TargetDatabase)' == ''">$(MSBuildProjectName)</TargetDatabase>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SqlTargetPath Condition="'$(GenerateCreateScript)' == 'True'">$(TargetDir)$(CreateScriptFileName)</SqlTargetPath>
+    <SqlTargetPath Condition="'$(GenerateCreateScript)' != 'True'">$(TargetDir)$(DeployScriptFileName)</SqlTargetPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MSBuildAllProjects>
+      $(MSBuildAllProjects);
+      $(MSBuildThisFileDirectory)$(MSBuildThisFile);
+    </MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--<LocalDbServer Condition="'$(SolutionName)' != '' and '$(SolutionName)' != '*Undefined*' and '$(LocalDbServer)' == ''">(localdb)\$(SolutionName.Replace('.', '_').Replace('%27', '_').Replace('@', '_').Replace(';', '_').PadRight(20).Substring(0, 20).Trim())</LocalDbServer>-->
+    <SuppressConnectionWarnings Condition="'$(SuppressConnectionWarnings)' == ''">False</SuppressConnectionWarnings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <FinalTargetConnectionString Condition="'$(TargetServer)' != ''">Data Source=$(TargetServer);Integrated Security=True;Pooling=False</FinalTargetConnectionString>
+    <FinalTargetConnectionString Condition="'$(FinalTargetConnectionString)' == '' and '$(TargetConnectionString)' != ''">$(TargetConnectionString)</FinalTargetConnectionString>
+    <FinalTargetConnectionString Condition="'$(FinalTargetConnectionString)' == '' and '$(TargetConnectionString)' == '' and '$(LocalDbServer)' != ''">Data Source=$(LocalDbServer);Integrated Security=True;Pooling=False</FinalTargetConnectionString>
+    <FinalTargetDatabase Condition="'$(FinalTargetDatabase)' == ''">$(TargetDatabase)</FinalTargetDatabase>
+
+    <UseTargetAsShadow Condition="'$(UseTargetAsShadow)' == ''">false</UseTargetAsShadow>
+    <FinalShadowConnectionString Condition="'$(ShadowServer)' != '' and '$(ShadowConnectionString)' == ''">Data Source=$(ShadowServer);Integrated Security=True;Pooling=False</FinalShadowConnectionString>
+    <FinalShadowConnectionString Condition="'$(FinalShadowConnectionString)' == '' and '$(ShadowConnectionString)' != ''">$(ShadowConnectionString)</FinalShadowConnectionString>
+    <FinalShadowConnectionString Condition="'$(FinalShadowConnectionString)' == '' and '$(ShadowConnectionString)' == '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(UseTargetAsShadow)' == 'true')">$(FinalTargetConnectionString)</FinalShadowConnectionString>
+    <FinalShadowDatabase Condition="'$(ShadowDatabase)' != ''">$(ShadowDatabase)</FinalShadowDatabase>
+    <FinalShadowDatabase Condition="'$(ShadowDatabase)' == ''">$(FinalTargetDatabase)_$(USERNAME)_SHADOW</FinalShadowDatabase>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SkipProjectVerification Condition="'$(SkipProjectVerification)' == ''">False</SkipProjectVerification>
+    <GenerateCreateScript Condition="'$(GenerateCreateScript)' == ''">False</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DBDeployOnBuild Condition="'$(DBDeployOnBuild)' == ''">False</DBDeployOnBuild>
+  </PropertyGroup>
+
+  <Target Name="SqlProjectBuild"
+          Inputs="@(NotInBuild);$(MSBuildProjectFullPath);$(MSBuildAllProjects)"
+          Outputs="@(NotInBuild->'$(SqlTargetPath)')"
+          DependsOnTargets="$(DBBuildDependsOn)">
+
+    <DBBuildTask	DatabaseSchemaProviderName="$(DSP)"
+						ProjectFolder="$(MSBuildProjectDirectory)"
+						GenerateCreateScript="$(GenerateCreateScript)"
+						DeploymentScriptName="$(CreateScriptFileName)"
+						DatabaseName="$(FinalTargetDatabase)"
+						OutputDirectory="$(IntermediateOutputPath)"
+						PropertiesFile="@(PropertiesFile->'%(FullPath)')"
+						Scripts="@(NotInBuild->'%(FullPath)')"
+						ShadowConnectionString="$(FinalShadowConnectionString)"
+						ShadowDatabase="$(FinalShadowDatabase)"
+		>
+      <Output TaskParameter="IntermediateFileWrites" ItemName="FileWrites"/>
+    </DBBuildTask>
+    <Copy       Condition="Exists('$(IntermediateOutputPath)$(CreateScriptFileName)')"
+				SourceFiles="$(IntermediateOutputPath)$(CreateScriptFileName)"
+                DestinationFolder="$(TargetDir)"
+        />
+  </Target>
+
+  <Target Name="DBBuild"
+          DependsOnTargets="$(DBBuildDependsOn)">
+    <ItemGroup>
+      <IllegalBuildTypeAssets Include="@(Build)" />
+      <IllegalBuildTypeAssets Include="@(PreDeploy)" />
+      <IllegalBuildTypeAssets Include="@(PostDeploy)" />
+      <IllegalBuildTypeAssets Include="@(BuildExtensionConfiguration)" />
+    </ItemGroup>
+
+    <Error Condition="@(IllegalBuildTypeAssets) != ''" Text="This project asset has an invalid Build attribute set. Please set its Build Action attribute to 'Not in Build'." File="%(IllegalBuildTypeAssets.FullPath)" />
+    <Delete Condition="'$(FinalTargetConnectionString)' == '' and Exists('$(TargetDir)$(DeployScriptFileName)')" Files="$(TargetDir)$(DeployScriptFileName)" />
+    <CallTarget Targets="SqlProjectBuild" Condition="'$(SkipProjectVerification)' != 'True'"/>
+    <Warning Condition="'$(SuppressConnectionWarnings)' == 'False' and '$(FinalTargetConnectionString)' == ''" Text="A patch deployment script cannot be created: please pass in a value for the TargetServer or TargetConnectionString property to generate a SQL file containing pending migrations, or alternately specify SuppressConnectionWarnings=True." />
+    <Message Condition="'$(SuppressConnectionWarnings)' == 'False' and '$(FinalShadowConnectionString)' == ''" Importance="high" Text="**Tip: To enable full verification of your database project, pass in a value for the ShadowServer or ShadowConnectionString Property. This will build or rebuild a separate copy of your database, validating the order and content of all scripts (useful in Continuous Integration builds)." />
+    <CallTarget Targets="SqlPatchBuild" Condition="'$(FinalTargetConnectionString)' != ''" />
+    <CallTarget Targets="Deploy" Condition="'$(DBDeployOnBuild)'=='True'" />
+
+  </Target>
+
+  <Target Name="DBDeploy"
+          DependsOnTargets="$(DBDeployDependsOn)">
+
+    <PropertyGroup>
+      <DeploymentScriptPath Condition="Exists('$(DeployScriptFilePath)')">$(DeployScriptFilePath)</DeploymentScriptPath>
+      <DeploymentScriptPath Condition="'$(DeploymentScriptPath)' == '' and Exists('$(CreateScriptFilePath)')">$(CreateScriptFilePath)</DeploymentScriptPath>
+    </PropertyGroup>
+
+    <Error Condition="'$(FinalTargetConnectionString)' == ''" Text="Cannot deploy database: a value for the TargetServer or TargetConnectionString property was not provided." />
+    <Error Condition="'$(DeploymentScriptPath)' == ''" Text="Cannot deploy database: the project has not been built. Please call the Build target before Deploy or alternately pass in a value for the DeployScriptFilePath property containing the full path to the generated SQL file." />
+    <Warning Condition="'$(SuppressConnectionWarnings)' == 'False' and !Exists('$(DeployScriptFilePath)')" Text="Deploy script ($(DeployScriptFilePath)) could not be found. Deploying with Project Build script instead ($(CreateScriptPath))." />
+
+    <DBDeployTask		DatabaseSchemaProviderName="$(DSP)"
+             ProjectFolder="$(MSBuildProjectDirectory)"
+             DatabaseName="$(FinalTargetDatabase)"
+             ConnectionString="$(FinalTargetConnectionString)"
+             PropertiesFile="@(PropertiesFile->'%(FullPath)')"
+             DeployScriptFile="$(DeploymentScriptPath)"
+             Scripts="@(NotInBuild->'%(FullPath)')"
+		/>
+  </Target>
+
+  <Target Name="SqlPatchBuild"
+          DependsOnTargets="$(DBBuildDependsOn)">
+
+    <DBPatchTask		DatabaseSchemaProviderName="$(DSP)"
+						ProjectFolder="$(MSBuildProjectDirectory)"
+						DatabaseName="$(FinalTargetDatabase)"
+						OutputDirectory="$(IntermediateOutputPath)"
+						ConnectionString="$(FinalTargetConnectionString)"
+						PropertiesFile="@(PropertiesFile->'%(FullPath)')"
+						PatchScriptName="$(DeployScriptFileName)"
+						Scripts="@(NotInBuild->'%(FullPath)')"
+		>
+      <Output TaskParameter="IntermediateFileWrites" ItemName="FileWrites"/>
+    </DBPatchTask>
+    <Copy       SourceFiles="$(IntermediateOutputPath)$(DeployScriptFileName)"
+                DestinationFolder="$(TargetDir)"
+        />
+    <ItemGroup>
+      <FileWrites Include="$(TargetDir)$(DeployScriptFileName)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="DBSetupDeploy" />
+
+</Project>

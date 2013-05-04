@@ -70,7 +70,7 @@
     <ReadyRollTargetsPath>$(AppDataPath)\Microsoft\VisualStudio\11.0Exp\Extensions\ReadyRoll\ReadyRoll SQL Server Database Projects\1.0\ReadyRoll.Data.Schema.SSDT.targets</ReadyRollTargetsPath>
   </PropertyGroup>
   <Import Condition="Exists('$(ReadyRollTargetsPath)')" Project="$(ReadyRollTargetsPath)" />
-  <Import Condition="!Exists('$(ReadyRollTargetsPath)')" Project="$(MSBuildExtensionsPath)\ReadyRoll\ReadyRoll.Data.Schema.SSDT.targets" />
+  <Import Condition="!Exists('$(ReadyRollTargetsPath)')" Project="..\.msbuild\ReadyRoll\ReadyRoll.Data.Schema.SSDT.targets" />
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Pre-Deployment\" />
