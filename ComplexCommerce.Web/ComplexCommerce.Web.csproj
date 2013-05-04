@@ -247,6 +247,7 @@
     </MonoDevelop>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="$(SolutionDir)\.octopack\OctoPack.targets" />
   <PropertyGroup>
     <PostBuildEvent>
 if $(ConfigurationName) == Debug (
