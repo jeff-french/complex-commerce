@@ -6,6 +6,7 @@
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <ExcludeObjectsFromSync />
+    <GenerateOctopusNuPkg>True</GenerateOctopusNuPkg>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -80,12 +81,19 @@
   <ItemGroup>
     <None Include="Pre-Deployment\01_Create_Database.sql" />
     <None Include="Deploy-Once\0002_20130420-2046_Jeff.sql" />
+    <None Include="ComplexCommerce.Data.SqlServer.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Post-Deployment\01_Finalize_Deployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Deploy-Once\0001_20130306-2026_Jeff.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Target Name="AfterDatabaseSync" Inputs="@(DBSyncFiles)" Outputs="OUTPUT_PLACEHOLDER">
     <PropertyGroup>

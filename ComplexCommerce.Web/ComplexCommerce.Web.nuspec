@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ComplexCommerce.Web</id>
+    <title>ComplexCommerce.Web</title>
+    <!--  The version number will be retrieved from the Assembly Information 
+          specified on the SQLCLR tab within project properties. -->
+    <version>1.0.0</version>
+    <authors>Jeff French</authors>
+    <owners>Jeff French</owners>
+    <licenseUrl>http://yourcompany.com</licenseUrl>
+    <projectUrl>http://yourcompany.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description></description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+</package>
