@@ -1,3 +1,4 @@
+﻿@using System.Configuration
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,6 @@
 </head>
 
 <body>
-
 <!-- Header starts -->
   <header>
     <div class="container">
@@ -47,7 +47,7 @@
           <!-- Logo. Use class "color" to add color to the text. -->
           <div class="logo">
             <h1><a href="#">Mac<span class="color bold">Kart</span></a></h1>
-            <p class="meta">online shopping is fun!!!</p>
+            <p class="meta">@ViewBag.Version - @ViewBag.Environment</p>
           </div>
         </div>
 

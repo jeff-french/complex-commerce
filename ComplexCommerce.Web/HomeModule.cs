@@ -11,7 +11,8 @@ namespace ComplexCommerce.Web
         {
             Get["/"] = paramaters =>
                 {
-                   
+                    ViewBag.Version = typeof(ComplexCommerce.Web.HomeModule).Assembly.GetName().Version.ToString();
+                    ViewBag.Environment = System.Configuration.ConfigurationManager.AppSettings["Environment"];
                    return View["index"];
                 };
             Get["/hello"] = parameters => "Hello Mono!";
