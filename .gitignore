@@ -163,6 +163,6 @@ pip-log.txt
 .DS_Store
 
 #Monodevelop
-*.userperfs
+*.userprefs
 
 .idea/
